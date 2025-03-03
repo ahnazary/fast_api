@@ -9,3 +9,7 @@
 **.log
 finance/src/data**
 .ruff_cache**
+dist/
+*.egg-info
+__version__.py
+.vscode
