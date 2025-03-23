@@ -34,3 +34,8 @@ class TransactionResponse(BaseModel):
 class CustomerCreate(BaseModel):
     id: int
     name: str
+
+
+class UsersCreate(BaseModel):
+    username: str
+    password: str
