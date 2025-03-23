@@ -5,6 +5,7 @@ Module for interacting with the postgres database
 import os
 
 from dotenv import load_dotenv
+from security import hash_password
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
@@ -62,6 +63,12 @@ def create_tables():
                 FOREIGN KEY (from_account) REFERENCES accounts(id) ON DELETE CASCADE,
                 FOREIGN KEY (to_account) REFERENCES accounts(id) ON DELETE CASCADE
             );
+
+            -- Create the users table
+            CREATE TABLE IF NOT EXISTS users (
+                username VARCHAR(255) PRIMARY KEY,
+                hashed_password VARCHAR(255) NOT NULL
+            );
         """
             )
         )
@@ -75,25 +82,30 @@ def fill_tables():
     with engine.connect() as conn:
         conn.execute(
             text(
-                """
-            -- Insert some initial data based on the task requirements
-            INSERT INTO customers (id, name) VALUES
-            (1, 'Arisha Barron'),
-            (2, 'Branden Gibson'),
-            (3, 'Rhonda Church'),
-            (4, 'Georgina Hazel')
-            on conflict do
-            nothing;
+                f"""
+                    -- Insert some initial data based on the task requirements
+                    INSERT INTO customers (id, name) VALUES
+                    (1, 'Arisha Barron'),
+                    (2, 'Branden Gibson'),
+                    (3, 'Rhonda Church'),
+                    (4, 'Georgina Hazel')
+                    on conflict do
+                    nothing;
 
-            -- Insert accounts with initial deposits
-            INSERT INTO accounts (customer_id, balance) VALUES
-            (1, 1000.00),
-            (2, 1500.00),
-            (3, 2000.00),
-            (4, 2500.00)
-            on conflict do
-            nothing;
-        """
+                    -- Insert accounts with initial deposits
+                    INSERT INTO accounts (customer_id, balance) VALUES
+                    (1, 1000.00),
+                    (2, 1500.00),
+                    (3, 2000.00),
+                    (4, 2500.00)
+                    on conflict do
+                    nothing;
+
+                    INSERT INTO USERS (username, hashed_password) VALUES
+                    ('admin', '{hash_password('admin123')}')
+                    on conflict do
+                    nothing;
+                """
             )
         )
         conn.commit()
@@ -112,6 +124,7 @@ def reset_tables():
             DELETE FROM transactions;
             DELETE FROM accounts;
             DELETE FROM customers;
+            DELETE FROM users;
 
             -- Reset the sequences
             ALTER SEQUENCE transactions_id_seq RESTART WITH 1;

@@ -43,3 +43,14 @@ class Transaction(Base):
     to_account = Column(Integer, ForeignKey("accounts.id"), nullable=False)
     amount = Column(Float, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+
+class Users(Base):
+    """
+    Model for the users table
+    This table is going to include usernames and hashded passwords
+    """
+
+    __tablename__ = "users"
+    username = Column(String, primary_key=True, index=True)
+    hashed_password = Column(String, nullable=False)
