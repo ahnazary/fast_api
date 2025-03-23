@@ -5,7 +5,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
 import pytest
 from sqlalchemy import text
-from src.security import hash_password
+from src.security import verify_password
 
 
 @pytest.mark.parametrize(
@@ -16,7 +16,7 @@ from src.security import hash_password
     ],
 )
 def test_create_new_user(
-    get_jwt_token, test_db, test_client, username, password, status_code
+    test_client, get_jwt_token, test_db, username, password, status_code
 ):
     response = test_client.post(
         "/users/create/",
@@ -30,4 +30,4 @@ def test_create_new_user(
     assert response.status_code == status_code
     assert user is not None
     assert user[0] == username
-    assert user[1] == hash_password(password)
+    assert verify_password(password, user[1])

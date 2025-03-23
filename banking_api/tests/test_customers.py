@@ -15,9 +15,9 @@ from sqlalchemy import text
     ],
 )
 def test_create_new_customer(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
     customer_id,
     name,
     expected_status_code,

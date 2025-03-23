@@ -15,9 +15,9 @@ from sqlalchemy import text
     ],
 )
 def test_create_new_account(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
     customer_id,
     initial_deposit,
     expected_status_code,
@@ -80,9 +80,9 @@ def test_create_acoount_for_customer_not_found(
     ],
 )
 def test_get_balance(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
     account_id,
     expected_status_code,
     expected_balance,
@@ -116,7 +116,7 @@ def test_get_balance(
     ],
 )
 def test_get_balance_account_not_found(
-    get_jwt_token, test_client, customer_id, expected_status_code
+    test_client, get_jwt_token, customer_id, expected_status_code
 ):
     """
     In this test, we are testing the get balance endpoint when the account is not found.

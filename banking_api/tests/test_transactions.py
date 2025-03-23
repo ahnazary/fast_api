@@ -15,9 +15,9 @@ from sqlalchemy import text
     ],
 )
 def test_transfer_funds(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
     sender_account_id,
     receiver_account_id,
     amount,
@@ -72,9 +72,9 @@ def test_transfer_funds(
 
 
 def test_get_transfer_history(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
 ):
     """
     In this test, we are testing the retrieval of transfer history for a given account.
@@ -113,9 +113,9 @@ def test_get_transfer_history(
 
 
 def test_transfter_more_than_balance(
+    test_client,
     get_jwt_token,
     test_db,
-    test_client,
 ):
     """
     In this test, we are testing the transfer of funds between two accounts, with an amount
