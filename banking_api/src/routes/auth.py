@@ -4,15 +4,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from postgres_interface import get_db
 from postgres_models import Users
-from security import create_access_token, hash_password, verify_password
+from security import create_access_token, verify_password
 from sqlalchemy.orm import Session
 
 router = APIRouter()
-
-# Dummy admin credentials, in real world, this should be stored in a database
-users_db = {
-    "admin": {"username": "admin", "hashed_password": hash_password("admin123")}
-}
 
 
 @router.post("/token")
