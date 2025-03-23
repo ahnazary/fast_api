@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from postgres_interface import Base, create_tables, engine, fill_tables
-from routes import accounts, auth, customers, transactions
+from routes import accounts, auth, customers, transactions, users
 
 Base.metadata.create_all(bind=engine)
 
@@ -14,7 +14,8 @@ app = FastAPI(
 )
 app.include_router(accounts.router, prefix="/accounts", tags=["Accounts"])
 app.include_router(transactions.router, prefix="/transactions", tags=["Transactions"])
-app.include_router(customers.router, prefix="/customers", tags=["customers"])
+app.include_router(customers.router, prefix="/customers", tags=["Customers"])
+app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 
 
