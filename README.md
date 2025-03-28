@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="docs/images/containers.png" alt="containers" width="400"/>
+  <img src="images/containers.png" alt="containers" width="400"/>
 </div>
 
 ## Bank API
@@ -8,7 +8,7 @@
 This is a simple bank API with routes for creating a new bank accounts, transferring money between accounts and getting the balance of an account and creating new customers. The API is built using FastAPI and the data is stored in a postgres database. In the below image, the schema of postgres database is shown:
 
 <div align="center">
-  <img src="docs/images/database_schema.png" alt="database_schema" width="400"/>
+  <img src="images/database_schema.png" alt="database_schema" width="400"/>
 </div>
 
 <br/>
