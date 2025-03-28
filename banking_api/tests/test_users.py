@@ -34,6 +34,9 @@ def test_create_new_user(
 
 
 def test_create_new_user_unauthorized(test_client, test_db):
+    """
+    Test to check if a user who is not an admin is not able to create a new user
+    """
     jwt_token = create_access_token(data={"sub": "unauthorized_user"})
     response = test_client.post(
         "/users/create/",
